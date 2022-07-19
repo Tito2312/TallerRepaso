@@ -16,6 +16,7 @@ const women = document.getElementById("women")
 const men = document.getElementById("men")
 
 window.addEventListener("load", toList)
+window.addEventListener("load", toListNames)
 select_character.addEventListener("change", render)
 select_age.addEventListener("change", toListNames)
 filter_gender.addEventListener("change" , quantityWomen)
@@ -70,7 +71,15 @@ function quantityWomen (event){
     Main.innerHTML = ''
     filterGender.map(character => createCharacter(character))
 
+//     let percentage = (100/people.length)
+//     let count = 0
+//     people.map(character => {if(character.gender === "Feminine"){
+//         count += percentage
+//     }})
+//     women.textContent = "the percentage of women is: " + count 
 }
+
+
 
 function render(){
 
@@ -102,10 +111,5 @@ function createCharacter(character){
 
 }
 
+let iterador = 0
 
-    
-
-
-
-toList()
-toListNames()
