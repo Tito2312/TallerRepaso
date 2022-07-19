@@ -9,9 +9,17 @@ import { people } from "./people.js";
 
 const select_character = document.getElementById("select-character")
 const select_age = document.getElementById("select-Age")
+const filter_gender = document.getElementById("filter-gender")
+const Main = document.getElementById("container-characters")
 
-select_character.addEventListener("change", toList)
+const women = document.getElementById("women")
+const men = document.getElementById("men")
+
+window.addEventListener("load", toList)
+select_character.addEventListener("change", render)
 select_age.addEventListener("change", toListNames)
+filter_gender.addEventListener("change" , quantityWomen)
+
 
 function toList (){
     select_character.innerHTML = ' ' 
@@ -44,6 +52,59 @@ function toListNames(){
     })
 
 }
+
+function quantityWomen (event){
+
+    const filterGender = event.target.value === 'percentage of women'
+    ? people.filter(character => character.gender === "Feminine")
+    : event.target.value === 'percentage of men'
+    ? people.filter(character => character.gender === "Male")
+    : null
+
+    const percetage = event.target.value === 'percentage of women'
+    ? women.textContent = "the percentage of women is: " + Math.round((3*100)/7) + "%"
+    : event.target.value === 'percentage of men'
+    ? men.textContent = "the percentage of men is: " + Math.round((4*100)/7) + "%"
+    : null
+
+    Main.innerHTML = ''
+    filterGender.map(character => createCharacter(character))
+
+}
+
+function render(){
+
+    people.map( character => {character.name ===  select_character.value ? createCharacter(character): null})
+}
+
+function createCharacter(character){
+
+    const { name , age, gender} = character
+
+    const card  = document.createElement('div')
+    card.classList.add("card")
+
+    const image = document.createElement('img')
+
+    const nameCharacter = document.createElement("p")
+    nameCharacter.textContent = name
+
+    const ageCharacter = document.createElement("p")
+    ageCharacter.textContent = age
+
+    const genderCharacter = document.createElement("p")
+    genderCharacter.textContent = gender 
+
+    Main.appendChild(card)
+    card.appendChild(nameCharacter)
+    card.appendChild(ageCharacter)
+    card.appendChild(genderCharacter)
+
+}
+
+
+    
+
 
 
 toList()
